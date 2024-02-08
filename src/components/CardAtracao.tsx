@@ -1,38 +1,35 @@
 import { Favorite, ThumbDown } from "@mui/icons-material";
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Divider, Typography } from "@mui/material";
+import { Atracao } from "../models/atracao.model";
 
-export const CardAtracao = () => {
+interface CardAtracaoProps {
+    atracao: Atracao;
+}
+
+export const CardAtracao = (props: CardAtracaoProps) => {
     return (
         <Card>
-            <CardMedia
-                component="img"
-                height="194"
-                image="https://s3.wasabisys.com/images.planetaatlantida.com.br/2024/lineup/fresno/main.png"
-            />
+            <CardMedia component="img" height="194" image={props.atracao.urlFoto} />
             <CardContent>
-                <Typography variant="h5">Fresno</Typography>
-                <Typography variant="body1">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus eos cum, quaerat quos, amet ab nihil
-                    eius praesentium, sunt exercitationem sed facere et odio repudiandae voluptates illum magnam totam
-                    illo.
-                </Typography>
+                <Typography variant="h5">{props.atracao.nome}</Typography>
+                <Typography variant="body1">{props.atracao.descricao}</Typography>
                 <Divider sx={{ mt: 2, mb: 2 }} />
                 <Box>
                     <Typography component={"span"} variant="button">
                         Horário:
                     </Typography>
                     <Typography component={"span"} variant="body2">
-                        19:00
+                        {props.atracao.horario}
                     </Typography>
                 </Box>
             </CardContent>
 
             <CardActions>
                 <Button>
-                    <Favorite /> <span>Curti!</span>
+                    <Favorite /> <span>Curti ({props.atracao.curtidas})</span>
                 </Button>
                 <Button>
-                    <ThumbDown /> Muito ruim!
+                    <ThumbDown /> Muito ruim ({props.atracao.descurtidas})
                 </Button>
             </CardActions>
         </Card>

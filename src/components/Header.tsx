@@ -1,4 +1,8 @@
-import { AppBar, Avatar, Toolbar, styled } from "@mui/material";
+import { AppBar, Avatar, Switch, Toolbar, styled } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { mudarTema } from "../config/modules/theme.slice";
+import { ThemeSwitch } from "./ThemeSwitch";
+import { useAppSelector } from "../config/hooks";
 
 const ToolbarStyled = styled(Toolbar)`
     display: flex;
@@ -11,6 +15,13 @@ const ToolbarStyled = styled(Toolbar)`
 `;
 
 export const Header = () => {
+    const dispatch = useDispatch();
+    const theme = useAppSelector((state) => state.theme);
+
+    const mudar = () => {
+        dispatch(mudarTema());
+    };
+
     return (
         <AppBar position="static">
             <ToolbarStyled>
@@ -21,7 +32,8 @@ export const Header = () => {
                 </div>
 
                 <div>
-                    <input type="text" />
+                    <ThemeSwitch onChange={mudar} />
+                    {theme ? "Default Theme" : "Dark Theme"}
                 </div>
             </ToolbarStyled>
         </AppBar>
